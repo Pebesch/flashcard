@@ -44,22 +44,22 @@ public class QuestionnaireController {
     public void findById(@PathVariable Long id, HttpServletResponse response, HttpServletRequest request) throws IOException {
         Questionnaire questionnaire = questionnaireRepository.findById(id);
 		
-            PrintWriter writer = response.getWriter();
-            writer.append("<html lang='en'><head><title>Example</title></head><body>");
-            writer.append("<h2>Questionnaire</h2>");
+        PrintWriter writer = response.getWriter();
+        writer.append("<html lang='en'><head><title>Example</title></head><body>");
+        writer.append("<h2>Questionnaire</h2>");
+        
+        if (questionnaire != null) {
             
-            if (questionnaire != null) {
-                
-                writer.append("<h3>" + questionnaire.getTitle() + "</h3>");
-                writer.append("<p>" + questionnaire.getDescription() + "</p>");	
-                
-            } else {
-                
-                writer.append("<p><em>no questionnaire found</em></p>");
-            }
+            writer.append("<h3>" + questionnaire.getTitle() + "</h3>");
+            writer.append("<p>" + questionnaire.getDescription() + "</p>");	
             
-            writer.append("<a href='" + request.getContextPath() + "/questionnaires'>Back</a>");
+        } else {
             
-            writer.append("</body></html>");
+            writer.append("<p><em>no questionnaire found</em></p>");
+        }
+        
+        writer.append("<a href='" + request.getContextPath() + "/questionnaires'>Back</a>");
+        
+        writer.append("</body></html>");
     }
 }
