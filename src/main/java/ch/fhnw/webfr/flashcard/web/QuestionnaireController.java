@@ -41,8 +41,8 @@ public class QuestionnaireController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public void findById(@PathVariable Long id, HttpServletResponse response, HttpServletRequest request) throws IOException {
-        Questionnaire questionnaire = questionnaireRepository.findById(id);
+    public void findById(@PathVariable String id, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        Questionnaire questionnaire = questionnaireRepository.findById(id).isPresent() ? questionnaireRepository.findById(id).get() : null;
 		
         PrintWriter writer = response.getWriter();
         writer.append("<html lang='en'><head><title>Example</title></head><body>");
