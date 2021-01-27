@@ -35,4 +35,16 @@ public class QuestionnaireController {
         model.addAttribute("questionnaire", questionnaire);
         return "questionnaires/show";
     }
+
+    @RequestMapping(method = RequestMethod.GET, params = {"form"})
+    public String form(Model model) {
+        model.addAttribute("questionnaire", new Questionnaire());
+        return "questionnaires/create";
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String create(Questionnaire questionnaire) {
+        Questionnaire q = questionnaireRepository.save(questionnaire);
+        return "redirect:questionnaires/" + q.getId();
+    }
 }

@@ -10,6 +10,10 @@ public class Questionnaire {
 	private String title;
 	private String description;
 	
+	public Questionnaire() {
+		this("", "");
+	}
+
 	public Questionnaire(String title, String description) {
 		this.title = title;
 		this.description = description;
@@ -27,8 +31,15 @@ public class Questionnaire {
 		return title;
 	}
 
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 	
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }
