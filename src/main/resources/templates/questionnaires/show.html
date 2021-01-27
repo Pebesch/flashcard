@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html th:replace="~{layout :: maincontent(~{::section})}">
+
 <head>
-	<title>Example</title>
+    <title>Questionnaire</title>
 </head>
+
 <body>
-	<div>
-		<h3 th:text="${questionnaire.title}">Title</h3>
-        <p th:text="${questionnaire.description}">Questionnaire</p>
+    <section>
+        <h3>Questionnaire</h3>
+        <strong th:text="${questionnaire.title}">sample title</strong>
+        <br />
+        <span th:text="${questionnaire.description}">sample description</span>
         <a href="../">Back</a>
-	</div>
+    </section>
 </body>
+
 </html>
