@@ -10,12 +10,14 @@
             <div class="col-md-10">
                 <!-- th:field evaluiert zu den Input-Element-Attributen id, name, value -->
                 <input class="form-control" type="text" th:field="*{title}" autofocus="autofocus" />	<!--#2-->
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger">Incorrecttitle</span>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-md-2" for="description">Description:</label>
             <div class="col-md-10">
                 <input class="form-control" type="text" th:field="*{description}" />
+                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">Incorrectdescription</span>
             </div>
         </div>
         <div class="form-group row">

@@ -1,7 +1,5 @@
 package ch.fhnw.webfr.flashcard.domain;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
