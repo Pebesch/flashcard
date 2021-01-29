@@ -1,11 +1,5 @@
 package ch.fhnw.webfr.flashcard.web;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ch.fhnw.webfr.flashcard.domain.Questionnaire;
 import ch.fhnw.webfr.flashcard.persistence.QuestionnaireRepository;
+
 
 @Controller
 @RequestMapping("/questionnaires")
@@ -33,9 +28,14 @@ public class QuestionnaireController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String findById(@PathVariable String id, Model model) {
-        Questionnaire questionnaire = questionnaireRepository.findById(id).isPresent() ? questionnaireRepository.findById(id).get() : null;
-        model.addAttribute("questionnaire", questionnaire);
-        return "questionnaires/show";
+        if(questionnaireRepository.existsById(id)) {
+            Questionnaire questionnaire = questionnaireRepository.findById(id).get();
+            model.addAttribute("questionnaire", questionnaire);
+            return "questionnaires/show";
+        } else {
+            return "404";
+        }
+        
     }
 
     @RequestMapping(method = RequestMethod.GET, params = {"form"})
@@ -52,5 +52,15 @@ public class QuestionnaireController {
         }
         Questionnaire q = questionnaireRepository.save(questionnaire);
         return "redirect:questionnaires/" + q.getId();
+    }
+
+    @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+    public String delete(@PathVariable String id) {
+        if(questionnaireRepository.existsById(id)) {
+            questionnaireRepository.deleteById(id);
+            return "redirect:/questionnaires";
+        } else {
+            return "redirect:404";
+        }
     }
 }
