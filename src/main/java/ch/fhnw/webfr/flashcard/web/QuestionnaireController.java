@@ -63,4 +63,31 @@ public class QuestionnaireController {
             return "redirect:404";
         }
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, params = {"edit"})
+    public String edit(@PathVariable String id, Model model) {
+        if(questionnaireRepository.existsById(id)) {
+            model.addAttribute("questionnaire", questionnaireRepository.findById(id).get());
+            return "questionnaires/update";
+        } else {
+            return "404";
+        }
+    }
+
+    @RequestMapping(value="/{id}", method = RequestMethod.PUT)
+    public String update(@PathVariable String id, @Valid Questionnaire questionnaire, BindingResult bindingResult, Model model) {
+        if(questionnaireRepository.existsById(id)) {
+            if(bindingResult.hasErrors()) {
+                //model.addAttribute("questionnaire", questionnaire);
+                return "questionnaires/update";
+            }
+            Questionnaire q = questionnaireRepository.findById(id).get();
+            q.setTitle(questionnaire.getTitle());
+            q.setDescription(questionnaire.getDescription());
+            questionnaireRepository.save(q);
+            return "redirect:/questionnaires";
+        } else {
+            return "redirect:404";
+        }
+    }
 }

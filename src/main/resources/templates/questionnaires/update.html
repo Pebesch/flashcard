@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{layout :: maincontent(~{::form})}">
+<head>
+    <title>Webfr</title>
+</head>
+<body>
+    <form th:action="@{/questionnaires} + '/' + ${questionnaire.id}" th:object="${questionnaire}" method="post">	<!--#1-->
+        <div class="form-group row">
+            <label class="col-md-2" for="title">Title:</label>
+            <div class="col-md-10">
+                <!-- th:field evaluiert zu den Input-Element-Attributen id, name, value -->
+                <input class="form-control" type="text" th:field="*{title}" autofocus="autofocus" />	<!--#2-->
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger">Incorrecttitle</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2" for="description">Description:</label>
+            <div class="col-md-10">
+                <input class="form-control" type="text" th:field="*{description}" />
+                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger">Incorrectdescription</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <a class="btn btn-default" th:href="@{/questionnaires}">Cancel</a>	<!--#3-->
+            <input type="hidden" name="_method" value="PUT"/>
+            <button type="submit" class="btn btn-primary">Update</button>	<!--#4-->
+        </div>
+    </form>
+</body>
+</html>
